@@ -1,0 +1,25 @@
+{
+  "name": "chatonlive",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node ./Server/index.js",
+    "dev": "node --watch ./Server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SchneiderSeba/ChatOnLive.git"
+  },
+  "author": "Sebastian Schneider",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SchneiderSeba/ChatOnLive/issues"
+  },
+  "homepage": "https://github.com/SchneiderSeba/ChatOnLive#readme",
+  "description": "",
+  "dependencies": {
+    "express": "4.19.2"
+  }
+}
