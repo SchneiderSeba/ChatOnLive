@@ -15,7 +15,6 @@
         socket.on('chat message', (msg) => {
             const newMessage = `<li class="message user">${msg}</li>`
             messages.insertAdjacentHTML('beforeend', newMessage)
-
         })
 
         form.addEventListener('submit', (e) => {
@@ -51,14 +50,16 @@
             margin-bottom: 1rem;
             padding: 0.75rem;
             border-radius: 0.5rem;
-            max-width: 70%;
+            max-width: fit-content;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             border: 1px solid #805ad5;
+
         }
         .message.user {
             background-color: #2d3748;
             margin-left: auto;
             list-style-type: none;
+            text-align: right;
         }
         .message.bot {
             background-color: #4a5568;
