@@ -16,6 +16,6 @@ export const connection = await mysql.createConnection(config)
 await connection.query(
   `CREATE TABLE IF NOT EXISTS messages (
   id INT PRIMARY KEY AUTO_INCREMENT, 
-  content TEXT, 
-  )`
+  content TEXT
+  );`
 )
