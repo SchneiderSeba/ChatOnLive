@@ -2,7 +2,8 @@ import express from 'express'
 import morgan from 'morgan'
 import { createServer } from 'node:http'
 import { Server } from 'socket.io'
-import { insertMessage } from '../DataBase/ChatDB.js'
+// import { insertMessage } from '../DataBase/ChatDB.js'
+import { connection } from '../DataBase/ChatDB.js'
 
 const PORT = process.env.PORT || 3000
 
@@ -12,6 +13,13 @@ const io = new Server(server, {
   connectionStateRecovery: {}
 })
 
+await connection.query(
+    `CREATE TABLE IF NOT EXISTS messages (
+    id INT PRIMARY KEY AUTO_INCREMENT, 
+    content TEXT
+    );`
+)
+
 io.on('connection', (socket) => {
   console.log('A user connected')
 
@@ -20,8 +28,17 @@ io.on('connection', (socket) => {
   })
 
   socket.on('chat message', async (msg) => {
-    await insertMessage(msg)
-    io.emit('chat message', msg)
+    let result
+    try {
+      const [rows] = await connection.query('INSERT INTO messages (content) VALUES (?)', [msg])
+      result = rows
+    } catch (error) {
+      console.error(error)
+      return
+    }
+    // return result
+    // await insertMessage(msg)
+    io.emit('chat message', msg, result.insertId.toString())
   })
 })
 
