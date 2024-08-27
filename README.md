@@ -1,24 +1,11 @@
 # 📦 Chat On Live
 
-![GitHub repo size](https://img.shields.io/github/repo-size/usuario/proyecto?style=flat-square)
-![GitHub issues](https://img.shields.io/github/issues/usuario/proyecto?style=flat-square)
-![GitHub forks](https://img.shields.io/github/forks/usuario/proyecto?style=flat-square)
-![GitHub stars](https://img.shields.io/github/stars/usuario/proyecto?style=flat-square)
-![GitHub license](https://img.shields.io/github/license/usuario/proyecto?style=flat-square)
-
 This is a real-time chat
 
 ## 🚀 Demo
 
 Check out the live demo: [Live Demo Link](https://your-demo-link.com)
 
-
-## ✨ Features
-
-- 🌟 **Feature 1**: Description of feature 1
-- ⚡ **Feature 2**: Description of feature 2
-- 🛠️ **Feature 3**: Description of feature 3
-- 🎨 **Feature 4**: Description of feature 4
 
 ## 🧰 Technologies
 
