@@ -11,11 +11,22 @@ const config = {
   connectTimeout: 10000
 }
 
-export const connection = await mysql.createConnection(config)
+export const connectioN = await mysql.createConnection(config)
 
-await connection.query(
+await connectioN.query(
   `CREATE TABLE IF NOT EXISTS messages (
   id INT PRIMARY KEY AUTO_INCREMENT, 
   content TEXT
   );`
 )
+
+export const insertMessage = async (msg) => {
+  let result
+  try {
+    const [rows] = await connectioN.query('INSERT INTO messages (content) VALUES (?)', [msg])
+    result = rows
+  } catch (error) {
+    console.error(error)
+  }
+  return result
+}

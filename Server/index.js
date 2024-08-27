@@ -2,6 +2,7 @@ import express from 'express'
 import morgan from 'morgan'
 import { createServer } from 'node:http'
 import { Server } from 'socket.io'
+import { insertMessage } from '../DataBase/ChatDB.js'
 
 const PORT = process.env.PORT || 3000
 
@@ -18,7 +19,8 @@ io.on('connection', (socket) => {
     console.log('A user disconnected')
   })
 
-  socket.on('chat message', (msg) => {
+  socket.on('chat message', async (msg) => {
+    await insertMessage(msg)
     io.emit('chat message', msg)
   })
 })
