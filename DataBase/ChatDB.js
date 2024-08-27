@@ -11,4 +11,11 @@ const config = {
   connectTimeout: 10000
 }
 
- export const connection = await mysql.createConnection(config)
+export const connection = await mysql.createConnection(config)
+
+await connection.query(
+  `CREATE TABLE IF NOT EXISTS messages (
+  id INT PRIMARY KEY AUTO_INCREMENT, 
+  content TEXT, 
+  )`
+)
