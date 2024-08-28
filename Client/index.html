@@ -26,8 +26,9 @@
 
         const socket = io({
                 auth: {
-                    username: await getUsername(),
-                    serverOffset: 0
+                    serverOffset: 0,
+                    username: await getUsername()
+                    
                 }
             })
 
@@ -55,7 +56,7 @@
             e.preventDefault()
             if (input.value) {
             //   socket.emit('chat message', input.value, username)
-              socket.emit('chat message', input.value)
+              socket.emit('chat message', input.value, username)
               input.value = ''
               scrollToBottom()
 
