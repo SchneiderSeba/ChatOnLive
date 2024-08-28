@@ -10,18 +10,18 @@
     import { io } from "https://cdn.socket.io/4.5.4/socket.io.esm.min.js"
 
         const getUsername = async () => {
-                    const username = localStorage.getItem('username')
-                    if (username) {
-                        console.log(`User is : ${username}`)
-                        return username
-                    }
+                const username = localStorage.getItem('username')
+                if (username) {
+                    console.log(`User is : ${username}`)
+                    return username
+                }
 
-                    const res = await fetch('https://random-data-api.com/api/users/random_user')
-                    const { username: randomUsername } = await res.json()
+                const res = await fetch('https://random-data-api.com/api/users/random_user')
+                const { username: randomUsername } = await res.json()
 
-                    localStorage.setItem('username', randomUsername)
-                    return randomUsername
-                    }
+                localStorage.setItem('username', randomUsername)
+                return randomUsername
+                }
 
 
         const socket = io({
@@ -87,6 +87,10 @@
             margin-left: auto;
             list-style-type: none;
             text-align: right;
+            overflow-y: scroll;
+            height: 100%;
+            scroll-behavior: smooth;
+            padding-bottom: 1rem;
         }
         .message.bot {
             background-color: #4a5568;
