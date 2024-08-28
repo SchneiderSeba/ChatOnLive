@@ -10,11 +10,11 @@
     import { io } from "https://cdn.socket.io/4.5.4/socket.io.esm.min.js"
 
         const getUsername = async () => {
-                const username = localStorage.getItem('username')
-                if (username) {
-                    console.log(`User is : ${username}`)
-                    return username
-                }
+                // const username = localStorage.getItem('username')
+                // if (username) {
+                //     console.log(`User is : ${username}`)
+                //     return username
+                // }
 
                 const res = await fetch('https://random-data-api.com/api/users/random_user')
                 const { username: randomUsername } = await res.json()
