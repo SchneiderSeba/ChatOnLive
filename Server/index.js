@@ -33,6 +33,7 @@ io.on('connection', async (socket) => {
   socket.on('chat message', async (msg) => {
     let result
     const username = socket.handshake.auth.username ?? 'Anonymous'
+    console.log({ username })
     try {
       const [rows] = await connection.query('INSERT INTO usermessages (content, user) VALUES (?, ?)', [msg, username])
       result = rows
@@ -40,6 +41,7 @@ io.on('connection', async (socket) => {
       console.error(error)
       return
     }
+    console.log(result)
     // return result
     // await insertMessage(msg)
     io.emit('chat message', msg, result.insertId.toString(), username)
@@ -47,8 +49,8 @@ io.on('connection', async (socket) => {
 
   if (!socket.recovered) {
     try {
-      const [rows] = await connection.query('SELECT id, content, user FROM usermessages WHERE id > ?', [socket.handshake.auth.serverOffset ?? 0])
-      rows.forEach((row) => {
+      const [result] = await connection.query('SELECT id, content, user FROM usermessages WHERE id > ?', [socket.handshake.auth.serverOffset ?? 0])
+      result.forEach((row) => {
         socket.emit('chat message', row.content, row.id.toString(), row.user)
       })
     } catch (error) {
