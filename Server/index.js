@@ -44,6 +44,9 @@ io.on('connection', async (socket) => {
   if (!socket.recovered) {
     try {
       const [rows] = await connection.query('SELECT id, content FROM messages WHERE id > ?', [socket.handshake.auth.serverOffset ?? 0])
+      rows.forEach((row) => {
+        socket.emit('chat message', row.content, row.id.toString())
+      })
     } catch (error) {
       console.error(error)
     }
