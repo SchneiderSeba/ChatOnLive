@@ -6,31 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat On Live</title>
     <script type="module">
+
+        const getUsername = async () => {
+                    const username = localStorage.getItem('username')
+                    if (username) {
+                        console.log(`User is : ${username}`)
+                        return username
+                    }
+
+                    const res = await fetch('http://random-data-api.com/api/name/random_name')
+                    const { username: randomUsername } = await res.json()
+                    localStorage.setItem('username', randomUsername)
+                    return randomUsername
+
+                    }
+
+        const username = await getUsername()
+
         import { io } from "https://cdn.socket.io/4.5.4/socket.io.esm.min.js"
         const socket = io({
             auth: {
                 serverOffset: 0,
-                username: await getUsername()
+                username: username
             }
         })
         const form = document.getElementById('form')
         const input = document.getElementById('input')
         const messages = document.getElementById('messages')
-        const getUsername = async () => {
-            const username = localStorage.getItem('username')
-            if (username) {
-                console.log(`User is : ${username}`)
-            }
 
-            const res = await fetch('http://random-data-api.com/api/name/random_name')
-            const { username: randomUsername } = await res.json()
-            localStorage.setItem('username', randomUsername)
-            return randomUsername
-
-            }
-
-        socket.on('chat message', (msg, serverOffset) => {
-            const newMessage = `<li class="message user">${msg}</li>`
+        socket.on('chat message', (msg, serverOffset, username) => {
+            const newMessage = `<li class="message user"><p>${msg}</p>
+                                                         <small>${username}</small></li>`
             messages.insertAdjacentHTML('beforeend', newMessage)
             socket.auth.serverOffset = serverOffset
         })
@@ -38,7 +44,8 @@
         form.addEventListener('submit', (e) => {
             e.preventDefault()
             if (input.value) {
-              socket.emit('chat message', input.value, username)
+            //   socket.emit('chat message', input.value, username)
+              socket.emit('chat message', input.value)
               input.value = ''
             }  
         })
