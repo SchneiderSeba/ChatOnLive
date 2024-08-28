@@ -13,9 +13,13 @@ const io = new Server(server, {
   connectionStateRecovery: {}
 })
 
+await connection.query('DROP TABLE IF EXISTS messages')
+
 await connection.query(
-    `CREATE TABLE IF NOT EXISTS messages (
-    id INT PRIMARY KEY AUTO_INCREMENT, 
+    `
+    CREATE TABLE IF NOT EXISTS usermessages (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user TEXT, 
     content TEXT
     );`
 )
@@ -30,7 +34,7 @@ io.on('connection', async (socket) => {
   socket.on('chat message', async (msg) => {
     let result
     try {
-      const [rows] = await connection.query('INSERT INTO messages (content) VALUES (?)', [msg])
+      const [rows] = await connection.query('INSERT INTO usermessages (content) VALUES (?)', [msg])
       result = rows
     } catch (error) {
       console.error(error)
@@ -43,7 +47,7 @@ io.on('connection', async (socket) => {
 
   if (!socket.recovered) {
     try {
-      const [rows] = await connection.query('SELECT id, content FROM messages WHERE id > ?', [socket.handshake.auth.serverOffset ?? 0])
+      const [rows] = await connection.query('SELECT id, content FROM usermessages WHERE id > ?', [socket.handshake.auth.serverOffset ?? 0])
       rows.forEach((row) => {
         socket.emit('chat message', row.content, row.id.toString())
       })
