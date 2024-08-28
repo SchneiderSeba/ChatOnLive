@@ -15,7 +15,6 @@ const io = new Server(server, {
 
 await connection.query(
     `
-    DROP TABLE IF EXISTS usermessages;
     CREATE TABLE IF NOT EXISTS usermessages (
     id INT PRIMARY KEY AUTO_INCREMENT,
     user TEXT, 
