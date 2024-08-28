@@ -49,7 +49,7 @@ io.on('connection', async (socket) => {
     try {
       const [rows] = await connection.query('SELECT id, content, user FROM usermessages WHERE id > ?', [socket.handshake.auth.serverOffset ?? 0])
       rows.forEach((row) => {
-        socket.emit('chat message', row.content, row.id.toString(), row.username)
+        socket.emit('chat message', row.content, row.id.toString(), row.user)
       })
     } catch (error) {
       console.error(error)
