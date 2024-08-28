@@ -32,6 +32,7 @@ io.on('connection', async (socket) => {
   socket.on('chat message', async (msg) => {
     let result
     const username = socket.handshake.auth.username ?? 'Anonymous'
+
     console.log({ username })
     try {
       const [rows] = await connection.query('INSERT INTO usermessages (content, user) VALUES (?, ?)', [msg, username])
