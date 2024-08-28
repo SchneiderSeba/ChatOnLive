@@ -8,7 +8,7 @@ const config = {
   port: DB_PORT,
   password: DB_PASSWORD,
   database: DB_NAME,
-  connectTimeout: 10000
+  connectTimeout: 20000
 }
 
 export const connection = await mysql.createConnection(config)

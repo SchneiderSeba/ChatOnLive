@@ -20,7 +20,7 @@ await connection.query(
     );`
 )
 
-io.on('connection', (socket) => {
+io.on('connection', async (socket) => {
   console.log('A user connected')
 
   socket.on('disconnect', () => {
@@ -40,6 +40,14 @@ io.on('connection', (socket) => {
     // await insertMessage(msg)
     io.emit('chat message', msg, result.insertId.toString())
   })
+
+  if (!socket.recovered) {
+    try {
+      const [rows] = await connection.query('SELECT id, content FROM messages WHERE id > ?', [socket.handshake.auth.serverOffset ?? 0])
+    } catch (error) {
+      console.error(error)
+    }
+  }
 })
 
 app.use(morgan('dev'))
