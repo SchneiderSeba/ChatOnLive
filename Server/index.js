@@ -13,10 +13,9 @@ const io = new Server(server, {
   connectionStateRecovery: {}
 })
 
-await connection.query('DROP TABLE IF EXISTS messages')
-
 await connection.query(
     `
+    DROP TABLE IF EXISTS usermessages;
     CREATE TABLE IF NOT EXISTS usermessages (
     id INT PRIMARY KEY AUTO_INCREMENT,
     user TEXT, 
