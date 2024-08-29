@@ -5,7 +5,7 @@ import { Server } from 'socket.io'
 // import { insertMessage } from '../DataBase/ChatDB.js'
 import { connection } from '../DataBase/ChatDB.js'
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT ?? 3002
 
 const app = express()
 const server = createServer(app)
